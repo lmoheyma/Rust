@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../')
-from cls.Vector import Vector, linear_combination
+from cls.Vector import Vector
 
 def main():
 	e1 = Vector([1.0, 0.0, 0.0])
