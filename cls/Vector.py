@@ -26,3 +26,16 @@ class Vector:
 
 	def __str__(self) -> str:
 		return f"{self.tab}"
+
+def linear_combination(u: list, coefs: list) -> list:
+	if len(u) != len(coefs):
+		print("Different size!")
+		return
+	combination = []
+	element = 0
+	for i in range(len(u)):
+		for j in range(len(u[i].tab)):
+			element += u[i].tab[j] * coefs[i]
+		combination.append(element)
+		element = 0
+	return combination
