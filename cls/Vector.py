@@ -24,19 +24,18 @@ class Vector:
 		for value in range(self.size):
 			self.tab[value] *= scalar
 
-	def linear_combination(self, coefs: list) -> list:
-		if len(self.tab) != len(coefs):
+	def linear_combination(_self, u: list, coefs: list):
+		if len(u) != len(coefs):
 			print("Different size!")
 			return
 		combination = []
 		element = 0
-		for i in range(len(self.tab)):
-			for j in range(len(self.tab[i].tab)):
-				element += self.tab[i].tab[j] * coefs[i]
+		for i in range(len(u)):
+			for j in range(len(u[i].tab)):
+				element += u[i].tab[j] * coefs[i]
 			combination.append(element)
 			element = 0
-		return combination
-
+		return Vector(combination)
 
 	def lerp(self, v: any, t: float):
 		if t == 0:
@@ -47,7 +46,7 @@ class Vector:
 		linear_interpolation = []
 		for i in range(length):
 			linear_interpolation.append((v.tab[i] - self.tab[i]) * t + self.tab[i])
-		return linear_interpolation
+		return Vector(linear_interpolation)
 
 	def __str__(self) -> str:
 		return f"{self.tab}"
