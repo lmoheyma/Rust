@@ -49,6 +49,15 @@ class Vector:
 		for i in range(length):
 			linear_interpolation.append((v.tab[i] - u.tab[i]) * t + u.tab[i])
 		return Vector(linear_interpolation)
+	
+	def dot(self, v) -> float:
+		if self.size != v.size:
+			print("Different vector size!")
+			return
+		dot_product = 0.0
+		for i in range(self.size):
+			dot_product += self.tab[i] * v.tab[i]
+		return dot_product
 
 	def __str__(self) -> str:
 		return f"{self.tab}"
