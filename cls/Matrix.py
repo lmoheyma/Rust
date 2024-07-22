@@ -32,17 +32,19 @@ class Matrix:
 			for column in range(len(self.matrix[0])):
 				self.matrix[row][column] *= scalar
 
-	def lerp(self, v: any, t: float):
+	def lerp(self, u: any, v: any, t: float):
 		if t == 0:
 			return 0.0
 		elif t == 1:
 			return 1.0
-		length = len(self.matrix)
+		if isinstance(u, (int, float)) or isinstance(v, (int, float)):
+			return Matrix([(v - u) * t + u])
+		length = len(u.matrix)
 		linear_interpolation = []
 		for i in range(length):
-			for j in range(len(self.matrix[i])):
-				linear_interpolation.append((v.matrix[i][j] - self.matrix[i][j]) * t + self.matrix[i][j])
-		return linear_interpolation
+			for j in range(len(u.matrix[i])):
+				linear_interpolation.append((v.matrix[i][j] - u.matrix[i][j]) * t + u.matrix[i][j])
+		return Matrix(linear_interpolation)
 
 	def __str__(self) -> str:
 		return f"{self.matrix}"

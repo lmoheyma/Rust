@@ -37,15 +37,17 @@ class Vector:
 			element = 0
 		return Vector(combination)
 
-	def lerp(self, v: any, t: float):
+	def lerp(self, u: any, v: any, t: float):
 		if t == 0:
-			return 0.0
+			return Vector([0.0])
 		elif t == 1:
-			return 1.0
-		length = len(self.tab)
+			return Vector([1.0])
+		if isinstance(u, (int, float)) or isinstance(v, (int, float)):
+			return Vector([(v - u) * t + u])
+		length = len(u.tab)
 		linear_interpolation = []
 		for i in range(length):
-			linear_interpolation.append((v.tab[i] - self.tab[i]) * t + self.tab[i])
+			linear_interpolation.append((v.tab[i] - u.tab[i]) * t + u.tab[i])
 		return Vector(linear_interpolation)
 
 	def __str__(self) -> str:
