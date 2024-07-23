@@ -77,5 +77,8 @@ class Matrix:
 			res.append(temp)
 		return Matrix(res)
 
+	def trace(self):
+		return sum([self.matrix[i][i] for i in range(len(self.matrix))])
+
 	def __str__(self) -> str:
 		return f"{self.matrix}"

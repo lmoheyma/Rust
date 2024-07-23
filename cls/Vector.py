@@ -93,6 +93,5 @@ class Vector:
 				(self.tab[2] * v.tab[0]) - (self.tab[0] * v.tab[2]),
 				(self.tab[0] * v.tab[1]) - (self.tab[1] * v.tab[0])])
 
-
 	def __str__(self) -> str:
 		return f"{self.tab}"
