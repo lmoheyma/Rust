@@ -58,6 +58,32 @@ class Vector:
 		for i in range(self.size):
 			dot_product += self.tab[i] * v.tab[i]
 		return dot_product
+	
+	def norm_1(self) -> float:
+		norm = sum([i for i in self.tab])
+		if norm < 0:
+			return -norm
+		return norm
+	
+	def norm(self) -> float:
+		return sum([i * i for i in self.tab])**0.5
+	
+	def norm_inf(self) -> float:
+		def abs(nb: float):
+			if nb < 0:
+				return -nb
+			return nb
+		return max([abs(i) for i in self.tab])
+	
+	def angle_cos(self, v: any) -> float:
+		if self.size != v.size:
+			print("Different vectors size!")
+			return
+		denominator = self.norm() * v.norm()
+		if denominator == 0:
+			print("Division by Zero!")
+			return
+		return (self.dot(v) / denominator)
 
 	def __str__(self) -> str:
 		return f"{self.tab}"

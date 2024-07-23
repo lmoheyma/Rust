@@ -2,7 +2,6 @@ import sys
 
 sys.path.append("../")
 from cls.Vector import Vector
-from cls.Matrix import Matrix
 
 def main():
 	u = Vector([0.0, 0.0])
