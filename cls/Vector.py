@@ -85,5 +85,14 @@ class Vector:
 			return
 		return (self.dot(v) / denominator)
 
+	def cross_product(self, v):
+		if self.size != 3 or v.size != 3:
+			print("Wrong vector size!")
+			return
+		return ([(self.tab[1] * v.tab[2]) - (self.tab[2] * v.tab[1]),
+				(self.tab[2] * v.tab[0]) - (self.tab[0] * v.tab[2]),
+				(self.tab[0] * v.tab[1]) - (self.tab[1] * v.tab[0])])
+
+
 	def __str__(self) -> str:
 		return f"{self.tab}"

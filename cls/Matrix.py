@@ -1,3 +1,5 @@
+from cls.Vector import Vector
+
 class Matrix:
 	def __init__(self, matrix) -> None:
 		self.matrix = matrix
@@ -45,6 +47,35 @@ class Matrix:
 			for j in range(len(u.matrix[i])):
 				linear_interpolation.append((v.matrix[i][j] - u.matrix[i][j]) * t + u.matrix[i][j])
 		return Matrix(linear_interpolation)
+
+	def mul_vec(self, vec):
+		length = len(self.matrix)
+		if length != vec.size:
+			print("Different size!")
+			return
+		res = []
+		for i in range(length):
+			temp = []
+			for j in range(vec.size):
+				temp.append(self.matrix[i][j] * vec.tab[j])
+			res.append(sum(temp))
+		return Vector(res)
+
+	def mul_mat(self, mat):
+		length = len(self.matrix)
+		if length != len(mat.matrix):
+			print("Different size!")
+			return
+		res = []
+		for i in range(length):
+			temp = []
+			for j in range(len(mat.matrix)):
+				element = 0
+				for k in range(len(mat.matrix[0])):
+					element += self.matrix[i][k] * mat.matrix[k][j]
+				temp.append(element)
+			res.append(temp)
+		return Matrix(res)
 
 	def __str__(self) -> str:
 		return f"{self.matrix}"
