@@ -4,6 +4,10 @@ class Matrix:
 	def __init__(self, matrix) -> None:
 		self.matrix = matrix
 	
+	def print_matrix(self):
+		for i in range(len(self.matrix)):
+			print(self.matrix[i])
+
 	def add(self, m):
 		if len(self.matrix) != len(m.matrix):
 			print("Different matrix size!")
@@ -79,6 +83,25 @@ class Matrix:
 
 	def trace(self):
 		return sum([self.matrix[i][i] for i in range(len(self.matrix))])
+	
+	def transpose(self):
+		return Matrix([[self.matrix[j][i] for j in range(len(self.matrix))] for i in range(len(self.matrix[0]))])
+		
+	def row_echelon(self):
+		for i in range(len(self.matrix)):
+			for j in range(1, len(self.matrix)):
+				firstNonNullIndex = 0
+				while self.matrix[j][firstNonNullIndex] == 0:
+					firstNonNullIndex += 1
+				print(firstNonNullIndex, self.matrix[j][firstNonNullIndex])
+				while self.matrix[j][firstNonNullIndex] != 0.0:
+					print(self.matrix[j])
+					if self.matrix[j][firstNonNullIndex] > 0:
+						self.matrix[j] = [a_i - b_i for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
+					elif self.matrix[j][firstNonNullIndex] < 0:
+						self.matrix[j] = [a_i + b_i for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
+				print(self.matrix[j])
+		return self
 
 	def __str__(self) -> str:
 		return f"{self.matrix}"
