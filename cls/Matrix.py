@@ -94,14 +94,20 @@ class Matrix:
 				firstNonNullIndex = 0
 				while self.matrix[j][firstNonNullIndex] == 0:
 					firstNonNullIndex += 1
+				# print(self.matrix[j][firstNonNullIndex])
 				while self.matrix[j][firstNonNullIndex] != 0.0:
-					scalar = self.matrix[j][firstNonNullIndex] / self.matrix[i][firstNonNullIndex]
+					scalar = self.matrix[j][firstNonNullIndex] / self.matrix[i][firstNonNullIndex] if self.matrix[i][firstNonNullIndex] != 0.0 else 1.0
+					# print(self.matrix[j])
+					# time.sleep(1)
 					if self.matrix[j][firstNonNullIndex] > 0:
 						self.matrix[j] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
 					elif self.matrix[j][firstNonNullIndex] < 0:
 						self.matrix[j] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
 		for k in range(len(self.matrix) - 1, -1, -1):
 			firstNonNullIndex = 0
+			# print(f"k: {k} {self.matrix[k]}")
+			if self.matrix[k] != 0.0:
+				break
 			while self.matrix[k][firstNonNullIndex] == 0:
 				firstNonNullIndex += 1
 			self.matrix[k] = [i / self.matrix[k][firstNonNullIndex] + 0.0 for i in self.matrix[k]]
