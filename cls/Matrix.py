@@ -1,4 +1,5 @@
 from cls.Vector import Vector
+import time
 
 class Matrix:
 	def __init__(self, matrix) -> None:
@@ -89,18 +90,28 @@ class Matrix:
 		
 	def row_echelon(self):
 		for i in range(len(self.matrix)):
-			for j in range(1, len(self.matrix)):
+			for j in range(i + 1, len(self.matrix)):
 				firstNonNullIndex = 0
 				while self.matrix[j][firstNonNullIndex] == 0:
 					firstNonNullIndex += 1
-				print(firstNonNullIndex, self.matrix[j][firstNonNullIndex])
 				while self.matrix[j][firstNonNullIndex] != 0.0:
-					print(self.matrix[j])
+					scalar = self.matrix[j][firstNonNullIndex] / self.matrix[i][firstNonNullIndex]
 					if self.matrix[j][firstNonNullIndex] > 0:
-						self.matrix[j] = [a_i - b_i for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
+						self.matrix[j] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
 					elif self.matrix[j][firstNonNullIndex] < 0:
-						self.matrix[j] = [a_i + b_i for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
-				print(self.matrix[j])
+						self.matrix[j] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
+		for k in range(len(self.matrix) - 1, -1, -1):
+			firstNonNullIndex = 0
+			while self.matrix[k][firstNonNullIndex] == 0:
+				firstNonNullIndex += 1
+			self.matrix[k] = [i / self.matrix[k][firstNonNullIndex] + 0.0 for i in self.matrix[k]]
+			for l in range(k - 1, -1, -1):
+				while self.matrix[l][firstNonNullIndex] != 0.0:
+					scalar = self.matrix[l][firstNonNullIndex] / self.matrix[k][firstNonNullIndex]
+					if self.matrix[l][firstNonNullIndex] > 0:
+						self.matrix[l] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
+					elif self.matrix[l][firstNonNullIndex] < 0:
+						self.matrix[l] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
 		return self
 
 	def __str__(self) -> str:
