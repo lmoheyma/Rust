@@ -88,36 +88,99 @@ class Matrix:
 	def transpose(self):
 		return Matrix([[self.matrix[j][i] for j in range(len(self.matrix))] for i in range(len(self.matrix[0]))])
 		
+	# def row_echelon(self):
+	# 	for i in range(len(self.matrix)):
+	# 		for j in range(i + 1, len(self.matrix)):
+	# 			firstNonNullIndex = 0
+	# 			while self.matrix[j][firstNonNullIndex] == 0:
+	# 				firstNonNullIndex += 1
+	# 			while self.matrix[j][firstNonNullIndex] != 0.0:
+	# 				scalar = self.matrix[j][firstNonNullIndex] / self.matrix[i][firstNonNullIndex] if self.matrix[i][firstNonNullIndex] != 0.0 else 1.0
+	# 				if self.matrix[j][firstNonNullIndex] > 0:
+	# 					self.matrix[j] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
+	# 				elif self.matrix[j][firstNonNullIndex] < 0:
+	# 					self.matrix[j] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
+	# 			print(self.matrix[j])
+	# 	for k in range(len(self.matrix) - 1, -1, -1):
+	# 		firstNonNullIndex = 0
+	# 		if self.matrix[k] == 0.0:
+	# 			break
+	# 		while self.matrix[k][firstNonNullIndex] == 0:
+	# 			firstNonNullIndex += 1
+	# 		self.matrix[k] = [i / self.matrix[k][firstNonNullIndex] + 0.0 for i in self.matrix[k]]
+	# 		for l in range(k - 1, -1, -1):
+	# 			while self.matrix[l][firstNonNullIndex] != 0.0:
+	# 				scalar = self.matrix[l][firstNonNullIndex] / self.matrix[k][firstNonNullIndex]
+	# 				if self.matrix[l][firstNonNullIndex] > 0:
+	# 					self.matrix[l] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
+	# 				elif self.matrix[l][firstNonNullIndex] < 0:
+	# 					self.matrix[l] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
+	# 	return self
+
+	# def row_echelon(self):
+	# 	def non_zero_col(self, pivot_row, col):
+	# 		nb_rows = len(self.matrix)
+	# 		for row in range(pivot_row, nb_rows):
+	# 			if self.matrix[row][col] != 0.0:
+	# 				return row
+	# 		return None
+		
+	# 	def swap_rows(self, row1, row2):
+	# 		self.matrix[row1], self.matrix[row2] = self.matrix[row2], self.matrix[row1]
+		
+	# 	def reduce_to_pivot_one(self, pivot_row, col):
+	# 		pivot = self.matrix[pivot_row][col]
+	# 		self.matrix[pivot_row] = [self.matrix[pivot_row][i] // pivot for i in range(len(self.matrix[pivot_row]))]
+	# 		print(f"pivot row: {self.matrix[pivot_row]}")
+
+	# 	def zero_below_pivot(self, pivot_row, col):
+	# 		nb_rows = len(self.matrix)
+	# 		pivot = self.matrix[pivot_row][col]
+	# 		for row in range(pivot_row + 1, nb_rows):
+	# 			scalar = self.matrix[row][col]
+	# 			# print(scalar)
+	# 			# self.matrix[row] -= scalar * self.matrix[pivot_row]
+	# 			self.matrix[row] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[row], self.matrix[pivot_row])]
+
+	# 	nb_rows = len(self.matrix)
+	# 	nb_cols = len(self.matrix[0])
+	# 	# print(nb_cols)
+	# 	pivot_row = 0
+	# 	for col in range(nb_cols):
+	# 		non_zero_row = non_zero_col(self, pivot_row, col)
+	# 		if non_zero_row is not None:
+	# 			# print("here")
+	# 			swap_rows(self, pivot_row, non_zero_row)
+	# 			print(non_zero_row)
+	# 			print(f"col: {col}")
+	# 			reduce_to_pivot_one(self, pivot_row, col)
+	# 			zero_below_pivot(self, pivot_row, col)
+	# 			pivot_row += 1
+	# 	return self
+
 	def row_echelon(self):
-		for i in range(len(self.matrix)):
-			for j in range(i + 1, len(self.matrix)):
-				firstNonNullIndex = 0
-				while self.matrix[j][firstNonNullIndex] == 0:
-					firstNonNullIndex += 1
-				# print(self.matrix[j][firstNonNullIndex])
-				while self.matrix[j][firstNonNullIndex] != 0.0:
-					scalar = self.matrix[j][firstNonNullIndex] / self.matrix[i][firstNonNullIndex] if self.matrix[i][firstNonNullIndex] != 0.0 else 1.0
-					# print(self.matrix[j])
-					# time.sleep(1)
-					if self.matrix[j][firstNonNullIndex] > 0:
-						self.matrix[j] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
-					elif self.matrix[j][firstNonNullIndex] < 0:
-						self.matrix[j] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
-		for k in range(len(self.matrix) - 1, -1, -1):
-			firstNonNullIndex = 0
-			# print(f"k: {k} {self.matrix[k]}")
-			if self.matrix[k] != 0.0:
-				break
-			while self.matrix[k][firstNonNullIndex] == 0:
-				firstNonNullIndex += 1
-			self.matrix[k] = [i / self.matrix[k][firstNonNullIndex] + 0.0 for i in self.matrix[k]]
-			for l in range(k - 1, -1, -1):
-				while self.matrix[l][firstNonNullIndex] != 0.0:
-					scalar = self.matrix[l][firstNonNullIndex] / self.matrix[k][firstNonNullIndex]
-					if self.matrix[l][firstNonNullIndex] > 0:
-						self.matrix[l] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
-					elif self.matrix[l][firstNonNullIndex] < 0:
-						self.matrix[l] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
+		pivot = 0
+		nb_rows = len(self.matrix)
+		nb_cols = len(self.matrix[0])
+		for row in range(nb_rows):
+			if pivot >= nb_cols:
+				return
+			i = row
+			while self.matrix[i][pivot] == 0:
+				i += 1
+				if i == nb_rows:
+					i = row
+					pivot += 1
+					if nb_cols == pivot:
+						return
+			self.matrix[i], self.matrix[row] = self.matrix[row], self.matrix[i]
+			lv = self.matrix[row][pivot]
+			self.matrix[row] = [mrx / float(lv) for mrx in self.matrix[row]]
+			for i in range(nb_rows):
+				if i != row:
+					lv = self.matrix[i][pivot]
+					self.matrix[i] = [iv - lv * rv for rv, iv in zip(self.matrix[row], self.matrix[i])]
+			pivot += 1
 		return self
 
 	def __str__(self) -> str:
