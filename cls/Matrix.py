@@ -160,6 +160,7 @@ class Matrix:
 
 	def row_echelon(self):
 		pivot = 0
+		self.sign = 1
 		nb_rows = len(self.matrix)
 		nb_cols = len(self.matrix[0])
 		for row in range(nb_rows):
@@ -182,6 +183,13 @@ class Matrix:
 					self.matrix[i] = [iv - lv * rv for rv, iv in zip(self.matrix[row], self.matrix[i])]
 			pivot += 1
 		return self
+
+	def determinant(self):
+		self.row_echelon()
+		det = 1
+		for i in range(len(self.matrix)):
+			det *= self.matrix[i][i]
+		return det * self.sign
 
 	def __str__(self) -> str:
 		return f"{self.matrix}"
