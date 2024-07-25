@@ -1,5 +1,5 @@
 from cls.Vector import Vector
-import time
+import copy
 
 class Matrix:
 	def __init__(self, matrix) -> None:
@@ -185,11 +185,48 @@ class Matrix:
 		return self
 
 	def determinant(self):
-		self.row_echelon()
-		det = 1
-		for i in range(len(self.matrix)):
-			det *= self.matrix[i][i]
-		return det * self.sign
+		def is_square(self):
+			return len(self.matrix) == len(self.matrix[0])
+		
+		def determinant_2(matrix: list):
+			return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0])
+
+		def determinant_3(matrix: list):
+			det = 0
+			for i in range(len(matrix[0])):
+				temp = copy.deepcopy(matrix)
+				first_coef = temp[0][i]
+				for j in temp:
+					del j[i]
+				coef = determinant_2(temp[1::]) * first_coef
+				sign = 1 if i % 2 == 0 else -1
+				det += coef * sign
+			return det
+		
+		def determinant_4(matrix):
+			det = 0
+			for i in range(len(matrix[0])):
+				temp = copy.deepcopy(matrix)
+				first_coef = temp[0][i]
+				for j in temp:
+					del j[i]
+				coef = determinant_3(temp[1::]) * first_coef
+				sign = 1 if i % 2 == 0 else -1
+				det += coef * sign
+			return det
+		if not is_square(self):
+			print("Not a square matrix!")
+			return
+		match len(self.matrix):
+			case 2:
+				return determinant_2(self.matrix)
+			case 3:
+				return determinant_3(self.matrix)
+			case 4:
+				return determinant_4(self.matrix)
+			case _:
+				print("Matrix too large!")
+				return
 
 	def __str__(self) -> str:
 		return f"{self.matrix}"
