@@ -9,6 +9,9 @@ class Matrix:
 		for i in range(len(self.matrix)):
 			print(self.matrix[i])
 
+	def is_square(self):
+		return len(self.matrix) == len(self.matrix[0])
+
 	def add(self, m):
 		if len(self.matrix) != len(m.matrix):
 			print("Different matrix size!")
@@ -87,76 +90,6 @@ class Matrix:
 	
 	def transpose(self):
 		return Matrix([[self.matrix[j][i] for j in range(len(self.matrix))] for i in range(len(self.matrix[0]))])
-		
-	# def row_echelon(self):
-	# 	for i in range(len(self.matrix)):
-	# 		for j in range(i + 1, len(self.matrix)):
-	# 			firstNonNullIndex = 0
-	# 			while self.matrix[j][firstNonNullIndex] == 0:
-	# 				firstNonNullIndex += 1
-	# 			while self.matrix[j][firstNonNullIndex] != 0.0:
-	# 				scalar = self.matrix[j][firstNonNullIndex] / self.matrix[i][firstNonNullIndex] if self.matrix[i][firstNonNullIndex] != 0.0 else 1.0
-	# 				if self.matrix[j][firstNonNullIndex] > 0:
-	# 					self.matrix[j] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
-	# 				elif self.matrix[j][firstNonNullIndex] < 0:
-	# 					self.matrix[j] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[j], self.matrix[i])]
-	# 			print(self.matrix[j])
-	# 	for k in range(len(self.matrix) - 1, -1, -1):
-	# 		firstNonNullIndex = 0
-	# 		if self.matrix[k] == 0.0:
-	# 			break
-	# 		while self.matrix[k][firstNonNullIndex] == 0:
-	# 			firstNonNullIndex += 1
-	# 		self.matrix[k] = [i / self.matrix[k][firstNonNullIndex] + 0.0 for i in self.matrix[k]]
-	# 		for l in range(k - 1, -1, -1):
-	# 			while self.matrix[l][firstNonNullIndex] != 0.0:
-	# 				scalar = self.matrix[l][firstNonNullIndex] / self.matrix[k][firstNonNullIndex]
-	# 				if self.matrix[l][firstNonNullIndex] > 0:
-	# 					self.matrix[l] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
-	# 				elif self.matrix[l][firstNonNullIndex] < 0:
-	# 					self.matrix[l] = [a_i + (-scalar * b_i) for a_i, b_i in zip(self.matrix[l], self.matrix[k])]
-	# 	return self
-
-	# def row_echelon(self):
-	# 	def non_zero_col(self, pivot_row, col):
-	# 		nb_rows = len(self.matrix)
-	# 		for row in range(pivot_row, nb_rows):
-	# 			if self.matrix[row][col] != 0.0:
-	# 				return row
-	# 		return None
-		
-	# 	def swap_rows(self, row1, row2):
-	# 		self.matrix[row1], self.matrix[row2] = self.matrix[row2], self.matrix[row1]
-		
-	# 	def reduce_to_pivot_one(self, pivot_row, col):
-	# 		pivot = self.matrix[pivot_row][col]
-	# 		self.matrix[pivot_row] = [self.matrix[pivot_row][i] // pivot for i in range(len(self.matrix[pivot_row]))]
-	# 		print(f"pivot row: {self.matrix[pivot_row]}")
-
-	# 	def zero_below_pivot(self, pivot_row, col):
-	# 		nb_rows = len(self.matrix)
-	# 		pivot = self.matrix[pivot_row][col]
-	# 		for row in range(pivot_row + 1, nb_rows):
-	# 			scalar = self.matrix[row][col]
-	# 			# print(scalar)
-	# 			# self.matrix[row] -= scalar * self.matrix[pivot_row]
-	# 			self.matrix[row] = [a_i - (scalar * b_i) for a_i, b_i in zip(self.matrix[row], self.matrix[pivot_row])]
-
-	# 	nb_rows = len(self.matrix)
-	# 	nb_cols = len(self.matrix[0])
-	# 	# print(nb_cols)
-	# 	pivot_row = 0
-	# 	for col in range(nb_cols):
-	# 		non_zero_row = non_zero_col(self, pivot_row, col)
-	# 		if non_zero_row is not None:
-	# 			# print("here")
-	# 			swap_rows(self, pivot_row, non_zero_row)
-	# 			print(non_zero_row)
-	# 			print(f"col: {col}")
-	# 			reduce_to_pivot_one(self, pivot_row, col)
-	# 			zero_below_pivot(self, pivot_row, col)
-	# 			pivot_row += 1
-	# 	return self
 
 	def row_echelon(self):
 		pivot = 0
@@ -184,49 +117,117 @@ class Matrix:
 			pivot += 1
 		return self
 
-	def determinant(self):
-		def is_square(self):
-			return len(self.matrix) == len(self.matrix[0])
-		
-		def determinant_2(matrix: list):
-			return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0])
+	def determinant_2(self, matrix: list):
+		return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0])
 
-		def determinant_3(matrix: list):
-			det = 0
-			for i in range(len(matrix[0])):
-				temp = copy.deepcopy(matrix)
-				first_coef = temp[0][i]
-				for j in temp:
-					del j[i]
-				coef = determinant_2(temp[1::]) * first_coef
-				sign = 1 if i % 2 == 0 else -1
-				det += coef * sign
-			return det
-		
-		def determinant_4(matrix):
-			det = 0
-			for i in range(len(matrix[0])):
-				temp = copy.deepcopy(matrix)
-				first_coef = temp[0][i]
-				for j in temp:
-					del j[i]
-				coef = determinant_3(temp[1::]) * first_coef
-				sign = 1 if i % 2 == 0 else -1
-				det += coef * sign
-			return det
-		if not is_square(self):
+	def determinant_3(self, matrix: list, row: int):
+		det = 0
+		for i in range(len(matrix[0])):
+			temp = copy.deepcopy(matrix)
+			first_coef = temp[row][i]
+			for j in temp:
+				del j[i]
+			del temp[row]
+			coef = self.determinant_2(temp) * first_coef
+			sign = 1 if i % 2 == 0 else -1
+			det += coef * sign
+		return det
+
+	def determinant_4(self, matrix: list, row : int):
+		det = 0
+		for i in range(len(matrix[0])):
+			temp = copy.deepcopy(matrix)
+			first_coef = temp[row][i]
+			for j in temp:
+				del j[i]
+			del temp[row]
+			coef = self.determinant_3(temp, row) * first_coef
+			sign = 1 if i % 2 == 0 else -1
+			det += coef * sign
+		return det
+
+	def determinant(self):	
+		if not self.is_square():
 			print("Not a square matrix!")
 			return
 		match len(self.matrix):
 			case 2:
-				return determinant_2(self.matrix)
+				return self.determinant_2(self.matrix)
 			case 3:
-				return determinant_3(self.matrix)
+				return self.determinant_3(self.matrix, 0)
 			case 4:
-				return determinant_4(self.matrix)
+				return self.determinant_4(self.matrix, 0)
 			case _:
 				print("Matrix too large!")
 				return
 
+	def inverse(self):
+		def inverse_2(self):
+			def cofactor_2(matrix):
+				return Matrix([[matrix[0][0], -matrix[0][1]], [-matrix[1][0], matrix[1][1]]])
+			cofactor_matrix = cofactor_2(self.matrix)
+			transposed_matrix = cofactor_matrix.transpose()
+			return Matrix([[(1 / det) * transposed_matrix.matrix[i][j] for j in range(len(transposed_matrix.matrix))] for i in range(len(transposed_matrix.matrix[0]))])
+		
+		def inverse_3(self, det: float):	
+			def cofactor_3(matrix):
+				cofactor_matrix = []
+				for i in range(len(matrix)):
+					cofactor_row = []
+					for j in range(len(matrix[i])):
+						temp = copy.deepcopy(matrix)
+						for k in temp:
+							del k[j]
+						del temp[i]
+						coef = self.determinant_2(temp) * ((-1) ** ((i + 1) + (j + 1))) + 0.0
+						cofactor_row.append(coef)
+					cofactor_matrix.append(cofactor_row)
+				return Matrix(cofactor_matrix)
+			cofactor_matrix = cofactor_3(self.matrix)
+			transposed_matrix = cofactor_matrix.transpose()
+			return Matrix([[(1 / det) * transposed_matrix.matrix[i][j] for j in range(len(transposed_matrix.matrix))] for i in range(len(transposed_matrix.matrix[0]))])
+
+		def inverse_4(self, det: float):
+			def cofactor_4(matrix):
+				cofactor_matrix = []
+				for i in range(len(matrix)):
+					cofactor_row = []
+					for j in range(len(matrix[i])):
+						temp = copy.deepcopy(matrix)
+						for k in temp:
+							del k[j]
+						del temp[i]
+						row = i if i < len(temp) else len(temp) - 1
+						coef = self.determinant_3(temp, row) * ((-1) ** ((i + 1) + (j + 1))) + 0.0
+						cofactor_row.append(coef)
+					cofactor_matrix.append(cofactor_row)
+				return Matrix(cofactor_matrix)
+			cofactor_matrix = cofactor_4(self.matrix)
+			transposed_matrix = cofactor_matrix.transpose()
+			return Matrix([[(1 / det) * transposed_matrix.matrix[i][j] for j in range(len(transposed_matrix.matrix))] for i in range(len(transposed_matrix.matrix[0]))])
+		det = self.determinant()
+		if det == 0:
+			print("Determinant = 0, can't inverse matrix!")
+			return
+		if not self.is_square():
+			print("Not a square matrix!")
+			return
+		length = len(self.matrix)
+		match length:
+			case 2:
+				return inverse_2(self)
+			case 3:
+				return inverse_3(self, det)
+			case 4:
+				return inverse_4(self, det)
+			case _:
+				print("Matrix too large!")
+				return
+		
+	def rank(self) -> float:
+		self.row_echelon()
+		return len(list(filter(lambda x: any(val != 0 for val in x), self.matrix)))
+	
 	def __str__(self) -> str:
-		return f"{self.matrix}"
+		rows = [f"[{', '.join(map(str, row))}]"for row in self.matrix]
+		return '\n'.join(rows) + '\n'

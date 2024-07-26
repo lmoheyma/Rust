@@ -10,11 +10,12 @@ def main():
 	# u.row_echelon()
 	# u.print_matrix()
 
-	# u = Matrix([[1.0, 4.0, 2.0, 1.0],
-	# 			[2.0, 5.0, 1.0, 5.0],
-	# 			[4.0, 10.0, -1.0, 1.0]])
-	# u.row_echelon()
-	# u.print_matrix()
+	u = Matrix([[1.0, 4.0, 2.0, 1.0],
+			 	[0.0, 0.0, 0.0, 0.0],
+				[2.0, 5.0, 1.0, 5.0],
+				[4.0, 10.0, -1.0, 1.0]])
+	u.row_echelon()
+	u.print_matrix()
 
 	# u = Matrix([[1.0, 2.0],
 	# 			[3.0, 4.0]])
