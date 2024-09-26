@@ -29,13 +29,15 @@ class Vector:
 			print("Different size!")
 			return
 		combination = []
-		element = 0
 		for i in range(len(u)):
+			temp = []
 			for j in range(len(u[i].tab)):
-				element += u[i].tab[j] * coefs[i]
-			combination.append(element)
-			element = 0
-		return Vector(combination)
+				temp.append(u[i].tab[j] * coefs[i])
+			combination.append(temp)
+		res = []
+		for i in range(len(combination[0])):
+			res.append(sum([element[i] for element in combination]))
+		return Vector(res)
 
 	def lerp(self, u: any, v: any, t: float):
 		if t == 0:

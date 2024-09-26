@@ -52,8 +52,10 @@ class Matrix:
 		length = len(u.matrix)
 		linear_interpolation = []
 		for i in range(length):
+			temp = []
 			for j in range(len(u.matrix[i])):
-				linear_interpolation.append((v.matrix[i][j] - u.matrix[i][j]) * t + u.matrix[i][j])
+				temp.append((v.matrix[i][j] - u.matrix[i][j]) * t + u.matrix[i][j])
+			linear_interpolation.append(temp)
 		return Matrix(linear_interpolation)
 
 	def mul_vec(self, vec):
