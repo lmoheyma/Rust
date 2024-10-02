@@ -4,7 +4,8 @@ sys.path.append("../")
 from cls.Matrix import Matrix
 
 def main():
-	u = Matrix([[1.0, 2.0], [3.0, 4.0]])
+	u = Matrix([[1.0, 2.0],
+			 	[3.0, 4.0]])
 	print(u.transpose())
 
 	u = Matrix([[2.0, -5.0, 0.0],

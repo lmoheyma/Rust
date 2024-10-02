@@ -4,7 +4,8 @@ sys.path.append("../")
 from cls.Matrix import Matrix
 
 def main():
-	u = Matrix([[1.0, 0.0], [0.0, 1.0]])
+	u = Matrix([[1.0, 0.0],
+			 	[0.0, 1.0]])
 	print(u.trace())
 
 	u = Matrix([[2.0, -5.0, 0.0],

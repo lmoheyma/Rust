@@ -8,6 +8,7 @@ class Matrix:
 	def print_matrix(self):
 		for i in range(len(self.matrix)):
 			print(self.matrix[i])
+		print()
 
 	def is_square(self):
 		return len(self.matrix) == len(self.matrix[0])
@@ -111,7 +112,7 @@ class Matrix:
 						return
 			self.matrix[i], self.matrix[row] = self.matrix[row], self.matrix[i]
 			lv = self.matrix[row][pivot]
-			self.matrix[row] = [mrx / float(lv) for mrx in self.matrix[row]]
+			self.matrix[row] = [mrx / float(lv) + 0.0 for mrx in self.matrix[row]]
 			for i in range(nb_rows):
 				if i != row:
 					lv = self.matrix[i][pivot]

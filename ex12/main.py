@@ -4,12 +4,12 @@ sys.path.append("../")
 from cls.Matrix import Matrix
 
 def main():
-	u = Matrix([[2.0, 1.0], [1.0, 2.0]])
-	print(u.inverse())
+	# u = Matrix([[2.0, 1.0], [1.0, 2.0]])
+	# print(u.inverse())
 
 	u = Matrix([[1.0, 0.0, 0.0],
-			[0.0, 1.0, 0.0],
-			[0.0, 0.0, 1.0]])
+				[0.0, 1.0, 0.0],
+				[0.0, 0.0, 1.0]])
 	print(u.inverse())
 
 	u = Matrix([[2.0, 0.0, 0.0],
